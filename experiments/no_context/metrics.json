@@ -1,0 +1,140 @@
+{
+  "answer_accuracy": 0.7333333333333333,
+  "Q": null,
+  "mean_input_tokens": 226.13333333333333,
+  "mean_output_tokens": 119.2,
+  "mean_llm_calls": 1,
+  "mean_cost": 958.9333333333333,
+  "median_latency_ms": 22935.75,
+  "efficiency_valid": true,
+  "E": 1,
+  "score": null,
+  "category_scores": {
+    "conditions": 0.6,
+    "comparison": 0.75,
+    "calculation": 0.6666666666666666,
+    "insufficient": 1.0
+  },
+  "questions": [
+    {
+      "id": "q_001",
+      "category": "conditions",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_002",
+      "category": "conditions",
+      "answer_accuracy": 0,
+      "citation_f1": 0.0,
+      "score": 0.0,
+      "errors": []
+    },
+    {
+      "id": "q_003",
+      "category": "comparison",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_004",
+      "category": "comparison",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_005",
+      "category": "conditions",
+      "answer_accuracy": 0,
+      "citation_f1": 0.0,
+      "score": 0.0,
+      "errors": []
+    },
+    {
+      "id": "q_006",
+      "category": "conditions",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_007",
+      "category": "calculation",
+      "answer_accuracy": 0,
+      "citation_f1": 0.0,
+      "score": 0.0,
+      "errors": []
+    },
+    {
+      "id": "q_008",
+      "category": "conditions",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_009",
+      "category": "comparison",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_010",
+      "category": "calculation",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_011",
+      "category": "calculation",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_012",
+      "category": "comparison",
+      "answer_accuracy": 0,
+      "citation_f1": 0.0,
+      "score": 0.0,
+      "errors": []
+    },
+    {
+      "id": "q_013",
+      "category": "insufficient",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_014",
+      "category": "insufficient",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_015",
+      "category": "insufficient",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    }
+  ]
+}

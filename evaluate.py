@@ -1,0 +1,4 @@
+from homework_01_rag.evaluate import main
+
+if __name__ == "__main__":
+    main()

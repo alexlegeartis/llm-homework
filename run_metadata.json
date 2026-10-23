@@ -1,0 +1,11 @@
+{
+  "platform": "Windows-10-10.0.17763-SP0",
+  "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+  "logical_cpus": 16,
+  "physical_cpus": 8,
+  "total_ram_bytes": 14877257728,
+  "peak_predictor_ram_bytes": 547209216,
+  "python": "3.11.15",
+  "baseline_reference_cost": 2287.866666666667,
+  "runtime_sha256": "7a4ac5c49b79002b8ff6684a2bf74f46dc9c6df33063bf4ad4f1493b7014f63e"
+}

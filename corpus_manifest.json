@@ -1,0 +1,8 @@
+{
+  "source": "https://new.mipt.ru/upload/mathematics/study/uchebniki/%D0%9B_%D0%A2%D0%A4%D0%9A%D0%9F_%D0%93%D0%BE%D1%80%D1%8F%D0%B9%D0%BD%D0%BE%D0%B2_%D0%9F%D0%BE%D0%BB%D0%BE%D0%B2%D0%B8%D0%BD%D0%BA%D0%B8%D0%BD_2025.pdf",
+  "pdf_sha256": "629f4b668ff43abf2a6e621aefd0f50e165ce8e88c52c05769149e1267d033ec",
+  "pdf_pages": 147,
+  "blocks": 526,
+  "corpus_sha256": "f7a3501ceac29732b8737c722b230a91a3e604280207137c10aa08fedf371714",
+  "extractor": "PyMuPDF 1.26.7; font decoding and geometric fractions/overbars; no LLM"
+}
