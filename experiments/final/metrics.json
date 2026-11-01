@@ -1,55 +1,23 @@
 {
-  "answer_accuracy": 0.6666666666666666,
-  "Q": 0.6148611111111111,
-  "mean_input_tokens": 1713.2,
-  "mean_output_tokens": 192.33333333333334,
-  "mean_llm_calls": 2,
-  "mean_cost": 2994.5333333333333,
-  "median_latency_ms": 55062.89,
+  "answer_accuracy": 1,
+  "Q": 0.9811111111111112,
+  "mean_input_tokens": 1730.6,
+  "mean_output_tokens": 3207.866666666667,
+  "mean_llm_calls": 1,
+  "mean_cost": 14818.066666666668,
+  "median_latency_ms": 195261.27,
   "efficiency_valid": true,
-  "E": 0.7640144262879024,
-  "score": 57.858652309640775,
+  "E": 0.9631035987600721,
+  "score": 97.20612438069844,
   "category_scores": {
-    "conditions": 0.5733333333333334,
-    "comparison": 0.6416666666666667,
-    "calculation": 0.5777777777777778,
-    "insufficient": 0.6666666666666666
+    "conditions": 0.9733333333333334,
+    "comparison": 0.9733333333333334,
+    "calculation": 0.9777777777777777,
+    "insufficient": 1.0
   },
   "questions": [
     {
       "id": "q_001",
-      "category": "conditions",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
-      "errors": []
-    },
-    {
-      "id": "q_002",
-      "category": "conditions",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
-      "errors": []
-    },
-    {
-      "id": "q_003",
-      "category": "comparison",
-      "answer_accuracy": 1,
-      "citation_f1": 0.5,
-      "score": 0.9,
-      "errors": []
-    },
-    {
-      "id": "q_004",
-      "category": "comparison",
-      "answer_accuracy": 1,
-      "citation_f1": 0.0,
-      "score": 0.8,
-      "errors": []
-    },
-    {
-      "id": "q_005",
       "category": "conditions",
       "answer_accuracy": 1,
       "citation_f1": 1.0,
@@ -57,22 +25,52 @@
       "errors": []
     },
     {
+      "id": "q_002",
+      "category": "conditions",
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_003",
+      "category": "comparison",
+      "answer_accuracy": 1,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
+      "errors": []
+    },
+    {
+      "id": "q_004",
+      "category": "comparison",
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "q_005",
+      "category": "conditions",
+      "answer_accuracy": 1,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
+      "errors": []
+    },
+    {
       "id": "q_006",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 0.3333333333333333,
-      "score": 0.8666666666666667,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {
       "id": "q_007",
       "category": "calculation",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
-      "errors": [
-        "Processing error"
-      ]
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
+      "errors": []
     },
     {
       "id": "q_008",
@@ -86,16 +84,16 @@
       "id": "q_009",
       "category": "comparison",
       "answer_accuracy": 1,
-      "citation_f1": 0.3333333333333333,
-      "score": 0.8666666666666667,
+      "citation_f1": 0.8,
+      "score": 0.9600000000000001,
       "errors": []
     },
     {
       "id": "q_010",
       "category": "calculation",
       "answer_accuracy": 1,
-      "citation_f1": 0.0,
-      "score": 0.8,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
@@ -109,17 +107,17 @@
     {
       "id": "q_012",
       "category": "comparison",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
       "id": "q_013",
       "category": "insufficient",
-      "answer_accuracy": 0,
+      "answer_accuracy": 1,
       "citation_f1": 0.0,
-      "score": 0.0,
+      "score": 1.0,
       "errors": []
     },
     {

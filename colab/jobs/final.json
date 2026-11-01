@@ -1,0 +1,9 @@
+[
+  [
+    "colab/run_hw1.py",
+    "--mode",
+    "benchmark",
+    "--names",
+    "final"
+  ]
+]

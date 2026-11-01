@@ -20,6 +20,7 @@ class Glyph:
 
 
 EXTENSION = {
+    "p": "√",
     "P": "Σ", "X": "Σ", "Q": "Π", "Y": "Π", "R": "∫", "Z": "∫",
     "H": "∮", "I": "∮", "S": "∪", "[": "∪", "T": "∩", "\\": "∩",
     "\x12": "(", "\x13": ")", "\x00": "(", "\x01": ")",
@@ -71,7 +72,7 @@ def render(glyphs):
             previous = glyph
     if script:
         result.append("}")
-    value = "".join(result)
+    value = "".join(result).replace("̸=", "≠").replace("bar(lim)", "limsup")
     value = re.sub(r"([а-яё])-\s*\n\s*([а-яё])", r"\1\2", value)
     return re.sub(r"\s+", " ", value).strip()
 
@@ -98,11 +99,23 @@ def page_paragraphs(page):
                     rules.append((x0, x1, item[1].y))
     fraction_rules = []
     for x0, x1, y in rules:
-        targets = [g for g in glyphs if g.math and g.size > 8.5 and re.fullmatch(r"[a-zα-ω]", g.text) and x0 - 0.5 <= g.x0 <= g.x1 <= x1 + 0.5 and 4.4 < g.baseline - y < 7.5]
-        if targets and x1 - x0 < 55:
+        within = [g for g in glyphs if g.math and g.text.strip() and x0 - 0.8 <= (g.x0 + g.x1) / 2 <= x1 + 0.8]
+        targets = [g for g in within if 2 < g.baseline - y < 12]
+        above = [g for g in within if 0.8 < y - g.baseline < 12]
+        simple = any(g.size > 8.5 and re.fullmatch(r"[a-zα-ω]", g.text) and 4.4 < g.baseline - y < 7.5 for g in targets)
+        radicals = [g for g in glyphs if g.text == "√" and abs(g.x1 - x0) < 1.0 and abs(g.baseline - y) < 5]
+        if targets and (simple or not above) and (radicals or x1 - x0 < 80):
             first = min(targets, key=lambda g: g.order)
             last = max(targets, key=lambda g: g.order)
-            first.text = "bar(" + first.text
+            prefix = "bar("
+            if radicals:
+                radical = radicals[0]
+                degree = [g for g in glyphs if g.math and g.size < 8.5 and radical.x0 <= g.x0 <= g.x1 <= x0 and -2 < g.baseline - y < 8 and g.text.strip()]
+                prefix = "root(" + render(degree) + "," if degree else "sqrt("
+                radical.text = ""
+                for glyph in degree:
+                    glyph.text = ""
+            first.text = prefix + first.text
             last.text += ")"
         else:
             fraction_rules.append((x0, x1, y))

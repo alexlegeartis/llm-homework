@@ -1,8 +1,10 @@
 param([int]$Port = 8089, [int]$Threads = 8)
 
-$ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'project_env.ps1')
 $ProgressPreference = 'SilentlyContinue'
 $runtime = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'runtime.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$parallel = $runtime.local_server.parallel
+$context = $runtime.local_server.context_size * $parallel
 $cache = Join-Path $PSScriptRoot '.cache/runtime'
 New-Item -ItemType Directory -Path $cache -Force | Out-Null
 $model = Join-Path $cache $runtime.quantization.file
@@ -25,4 +27,4 @@ Get-VerifiedFile $runtime.local_server.windows_url $archive $runtime.local_serve
 if (-not (Test-Path -LiteralPath (Join-Path $bin 'llama-server.exe'))) {
     Expand-Archive -LiteralPath $archive -DestinationPath $bin
 }
-& (Join-Path $bin 'llama-server.exe') -m $model --host 127.0.0.1 --port $Port --ctx-size 8192 --parallel 1 --threads $Threads --threads-batch $Threads --batch-size 256 --ubatch-size 128 --jinja --alias $runtime.model --cache-ram 0 --no-repack
+& (Join-Path $bin 'llama-server.exe') -m $model --host 127.0.0.1 --port $Port --ctx-size $context --parallel $parallel --threads $Threads --threads-batch $Threads --batch-size 256 --ubatch-size 128 --jinja --alias $runtime.model --cache-ram 0 --no-repack

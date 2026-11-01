@@ -4,18 +4,24 @@
   "quantization": {
     "repository": "unsloth/Qwen3.5-4B-GGUF",
     "revision": "e87f176479d0855a907a41277aca2f8ee7a09523",
-    "file": "Qwen3.5-4B-Q4_K_M.gguf",
-    "type": "Q4_K_M",
-    "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4"
+    "file": "Qwen3.5-4B-Q8_0.gguf",
+    "type": "Q8_0",
+    "sha256": "10cc391b403021dd11c614679d2fd92f611c3681d29e29651b717316965d61e1"
   },
   "generation": {
-    "temperature": 0.0,
-    "top_p": 1.0,
-    "max_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "max_tokens": 4096,
     "seed": 42,
-    "chat_template_kwargs": {"enable_thinking": false}
+    "chat_template_kwargs": {
+      "enable_thinking": true
+    },
+    "presence_penalty": 1.5,
+    "top_k": 20,
+    "min_p": 0.0,
+    "thinking_budget_tokens": 3072
   },
-  "timeout_seconds": 300,
+  "timeout_seconds": 1200,
   "limits": {
     "llm_calls": 4,
     "input_tokens": 16384,
@@ -24,8 +30,14 @@
   },
   "retrieval_device": "cpu",
   "ram_limit_gib": 8,
-  "local_server": {"backend": "llama.cpp", "version": "b11669", "context_size": 8192, "parallel": 1, "threads": 8,
+  "local_server": {
+    "backend": "llama.cpp",
+    "version": "b11669",
+    "context_size": 8192,
+    "parallel": 4,
+    "threads": 8,
     "windows_url": "https://github.com/ggml-org/llama.cpp/releases/download/b11669/llama-b11669-bin-win-cpu-x64.zip",
-    "windows_sha256": "37b3efcf962847ca869745fd4ccf7f5e7e8dacfeff9fa3523b4ca8cdc66d632b"},
+    "windows_sha256": "37b3efcf962847ca869745fd4ccf7f5e7e8dacfeff9fa3523b4ca8cdc66d632b"
+  },
   "baseline_note": "Self-prepared baseline; official C_ref is not supplied. Local efficiency uses the measured baseline cost."
 }

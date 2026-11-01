@@ -11,13 +11,13 @@ import sys
 
 import psutil
 
-from .common import load_config, read_jsonl
+from .common import peak_ram_bytes, load_config, read_jsonl
 from .evaluate import evaluate
 from .predict import predict
 from .retrieval import Index
 
 
-VARIANTS = ["no_context", "baseline", "final", "without_dense", "without_rewrite"]
+VARIANTS = ["no_context", "baseline", "final", "without_neighbors", "without_expansion"]
 FIELDS = ["name", "answer_accuracy", "Q", "mean_input_tokens", "mean_output_tokens", "mean_llm_calls", "mean_cost", "median_latency_ms"]
 
 
@@ -43,21 +43,24 @@ def main():
         config = copy.deepcopy(base)
         config["mode"] = name if name in {"no_context", "baseline"} else "final"
         if name in {"no_context", "baseline"}:
-            config["retrieval"]["dense"] = False
-            config["retrieval"]["rewrite"] = False
-        if name == "without_dense":
-            config["retrieval"]["dense"] = False
-        if name == "without_rewrite":
-            config["retrieval"]["rewrite"] = False
+            config["retrieval"]["query_expansion"] = False
+            config["retrieval"]["neighbors"] = False
+            config["retrieval"]["top_k"] = 3
+        if name == "without_expansion":
+            config["retrieval"]["query_expansion"] = False
+        if name == "without_neighbors":
+            config["retrieval"]["neighbors"] = False
         portable = copy.deepcopy({key: value for key, value in config.items() if key not in {"runtime_settings", "config_directory"}})
         portable["runtime"] = "../../runtime.json"
-        portable["embedding"]["local_path"] = "../../.cache/e5"
+        if "tokenizer" in portable:
+            portable["tokenizer"]["local_path"] = "../../.cache/qwen-tokenizer"
         (folder / "config.json").write_text(json.dumps(portable, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"Starting {name}", file=sys.stderr, flush=True)
         submission = os.environ.get("SUBMISSION_ID", "")
         os.environ["SUBMISSION_ID"] = submission + "-" + name
         try:
-            predict(index, questions, folder / "answers.jsonl", folder / "trace.jsonl", config)
+            if predict(index, questions, folder / "answers.jsonl", folder / "trace.jsonl", config):
+                raise RuntimeError(f"Prediction failed in {name}; inspect trace.jsonl")
         finally:
             os.environ["SUBMISSION_ID"] = submission
     baseline_trace = runs / "baseline" / "trace.jsonl"
@@ -80,8 +83,7 @@ def main():
     if (runs / "final" / "answers.jsonl").exists():
         shutil.copyfile(runs / "final" / "answers.jsonl", output / "dev_answers.jsonl")
         shutil.copyfile(runs / "final" / "trace.jsonl", output / "dev_trace.jsonl")
-    memory = psutil.Process().memory_info()
-    metadata = {"platform": platform.platform(), "processor": platform.processor(), "logical_cpus": psutil.cpu_count(), "physical_cpus": psutil.cpu_count(logical=False), "total_ram_bytes": psutil.virtual_memory().total, "peak_predictor_ram_bytes": getattr(memory, "peak_wset", memory.rss), "python": platform.python_version(), "baseline_reference_cost": reference, "runtime_sha256": hashlib.sha256(json.dumps(base["runtime_settings"], sort_keys=True).encode()).hexdigest()}
+    metadata = {"platform": platform.platform(), "processor": platform.processor(), "logical_cpus": psutil.cpu_count(), "physical_cpus": psutil.cpu_count(logical=False), "total_ram_bytes": psutil.virtual_memory().total, "peak_predictor_ram_bytes": peak_ram_bytes(), "python": platform.python_version(), "baseline_reference_cost": reference, "runtime_sha256": hashlib.sha256(json.dumps(base["runtime_settings"], sort_keys=True).encode()).hexdigest()}
     if not args.summarize_only:
         (output / "run_metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(results, ensure_ascii=False), flush=True)

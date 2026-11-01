@@ -1,18 +1,18 @@
 {
-  "answer_accuracy": 0.7333333333333333,
-  "Q": 0.6773333333333333,
-  "mean_input_tokens": 1640.6666666666667,
-  "mean_output_tokens": 190.2,
-  "mean_llm_calls": 2,
-  "mean_cost": 2913.4666666666667,
-  "median_latency_ms": 54820.81,
+  "answer_accuracy": 0.8666666666666667,
+  "Q": 0.8095833333333333,
+  "mean_input_tokens": 1804.6666666666667,
+  "mean_output_tokens": 3207.5333333333333,
+  "mean_llm_calls": 1,
+  "mean_cost": 14890.8,
+  "median_latency_ms": 193806.98,
   "efficiency_valid": true,
-  "E": 0.7852729852180679,
-  "score": 64.09728921635929,
+  "E": 0.9583993696331516,
+  "score": 80.1163539083043,
   "category_scores": {
-    "conditions": 0.736,
-    "comparison": 0.6400000000000001,
-    "calculation": 0.3333333333333333,
+    "conditions": 0.9466666666666667,
+    "comparison": 0.42500000000000004,
+    "calculation": 0.8666666666666667,
     "insufficient": 1.0
   },
   "questions": [
@@ -20,56 +20,56 @@
       "id": "q_001",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 0.0,
-      "score": 0.8,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
       "id": "q_002",
       "category": "conditions",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
+      "answer_accuracy": 1,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {
       "id": "q_003",
       "category": "comparison",
       "answer_accuracy": 1,
-      "citation_f1": 0.0,
-      "score": 0.8,
+      "citation_f1": 0.5,
+      "score": 0.9,
       "errors": []
     },
     {
       "id": "q_004",
       "category": "comparison",
-      "answer_accuracy": 1,
-      "citation_f1": 0.4,
-      "score": 0.8800000000000001,
+      "answer_accuracy": 0,
+      "citation_f1": 0.0,
+      "score": 0.0,
       "errors": []
     },
     {
       "id": "q_005",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {
       "id": "q_006",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 0.4,
-      "score": 0.8800000000000001,
+      "citation_f1": 0.3333333333333333,
+      "score": 0.8666666666666667,
       "errors": []
     },
     {
       "id": "q_007",
       "category": "calculation",
-      "answer_accuracy": 0,
+      "answer_accuracy": 1,
       "citation_f1": 0.0,
-      "score": 0.0,
+      "score": 0.8,
       "errors": []
     },
     {
@@ -83,17 +83,17 @@
     {
       "id": "q_009",
       "category": "comparison",
-      "answer_accuracy": 1,
-      "citation_f1": 0.4,
-      "score": 0.8800000000000001,
+      "answer_accuracy": 0,
+      "citation_f1": 0.0,
+      "score": 0.0,
       "errors": []
     },
     {
       "id": "q_010",
       "category": "calculation",
-      "answer_accuracy": 0,
+      "answer_accuracy": 1,
       "citation_f1": 0.0,
-      "score": 0.0,
+      "score": 0.8,
       "errors": []
     },
     {
@@ -107,9 +107,9 @@
     {
       "id": "q_012",
       "category": "comparison",
-      "answer_accuracy": 0,
+      "answer_accuracy": 1,
       "citation_f1": 0.0,
-      "score": 0.0,
+      "score": 0.8,
       "errors": []
     },
     {

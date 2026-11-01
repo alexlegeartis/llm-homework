@@ -1,51 +1,51 @@
 {
-  "answer_accuracy": 0.6666666666666666,
-  "Q": 0.6295833333333334,
-  "mean_input_tokens": 1409.2,
-  "mean_output_tokens": 155.66666666666666,
+  "answer_accuracy": 0.7333333333333333,
+  "Q": 0.6950000000000001,
+  "mean_input_tokens": 1310.2666666666667,
+  "mean_output_tokens": 3176.266666666667,
   "mean_llm_calls": 1,
-  "mean_cost": 2287.866666666667,
-  "median_latency_ms": 50689.79,
+  "mean_cost": 14271.333333333334,
+  "median_latency_ms": 197443.74,
   "efficiency_valid": true,
   "E": 1,
-  "score": 62.95833333333334,
+  "score": 69.5,
   "category_scores": {
-    "conditions": 0.36,
-    "comparison": 0.8250000000000001,
-    "calculation": 0.6666666666666666,
-    "insufficient": 0.6666666666666666
+    "conditions": 0.76,
+    "comparison": 0.42000000000000004,
+    "calculation": 0.6,
+    "insufficient": 1.0
   },
   "questions": [
     {
       "id": "q_001",
       "category": "conditions",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
       "id": "q_002",
       "category": "conditions",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
       "id": "q_003",
       "category": "comparison",
       "answer_accuracy": 1,
-      "citation_f1": 0.0,
-      "score": 0.8,
+      "citation_f1": 0.4,
+      "score": 0.8800000000000001,
       "errors": []
     },
     {
       "id": "q_004",
       "category": "comparison",
-      "answer_accuracy": 1,
-      "citation_f1": 0.5,
-      "score": 0.9,
+      "answer_accuracy": 0,
+      "citation_f1": 0.0,
+      "score": 0.0,
       "errors": []
     },
     {
@@ -67,9 +67,9 @@
     {
       "id": "q_007",
       "category": "calculation",
-      "answer_accuracy": 0,
+      "answer_accuracy": 1,
       "citation_f1": 0.0,
-      "score": 0.0,
+      "score": 0.8,
       "errors": []
     },
     {
@@ -83,9 +83,9 @@
     {
       "id": "q_009",
       "category": "comparison",
-      "answer_accuracy": 1,
+      "answer_accuracy": 0,
       "citation_f1": 0.0,
-      "score": 0.8,
+      "score": 0.0,
       "errors": []
     },
     {
@@ -99,9 +99,9 @@
     {
       "id": "q_011",
       "category": "calculation",
-      "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "answer_accuracy": 0,
+      "citation_f1": 0.0,
+      "score": 0.0,
       "errors": []
     },
     {
@@ -115,9 +115,9 @@
     {
       "id": "q_013",
       "category": "insufficient",
-      "answer_accuracy": 0,
+      "answer_accuracy": 1,
       "citation_f1": 0.0,
-      "score": 0.0,
+      "score": 1.0,
       "errors": []
     },
     {

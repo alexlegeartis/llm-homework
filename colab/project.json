@@ -1,0 +1,25 @@
+{
+  "session": "llm-homework",
+  "gpu": "T4",
+  "bundle": "..",
+  "exclude": [
+    ".venv",
+    ".cache",
+    "index",
+    "indexes",
+    "experiments",
+    "data",
+    "runs",
+    ".env",
+    ".env.*",
+    "*.log",
+    "*.gguf",
+    "*.onnx",
+    "*.safetensors"
+  ],
+  "pip": [],
+  "import_check": "homework_01_rag",
+  "pack_exclude": [
+    "__pycache__"
+  ]
+}

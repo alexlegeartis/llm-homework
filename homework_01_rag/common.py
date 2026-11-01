@@ -32,3 +32,12 @@ def load_config(path):
     config["runtime_settings"] = json.loads(runtime_path.read_text(encoding="utf-8-sig"))
     config["config_directory"] = str(path.parent)
     return config
+
+
+def peak_ram_bytes():
+    import psutil
+    memory = psutil.Process().memory_info()
+    if hasattr(memory, "peak_wset"):
+        return memory.peak_wset
+    import resource
+    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024

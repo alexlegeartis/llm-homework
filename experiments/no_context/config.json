@@ -1,19 +1,20 @@
 {
   "runtime": "../../runtime.json",
   "mode": "no_context",
-  "embedding": {
-    "repository": "intfloat/multilingual-e5-small",
-    "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
-    "file": "onnx/model_qint8_avx512_vnni.onnx",
-    "parameters": 118000000,
-    "local_path": "../../.cache/e5"
-  },
   "retrieval": {
     "k1": 1.5,
     "b": 0.75,
-    "top_k": 6,
+    "top_k": 3,
     "candidate_k": 18,
-    "dense": false,
-    "rewrite": false
+    "neighbors": false,
+    "input_budget": 2200,
+    "query_expansion": false
+  },
+  "tokenizer": {
+    "repository": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "file": "tokenizer.json",
+    "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+    "local_path": "../../.cache/qwen-tokenizer"
   }
 }

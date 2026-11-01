@@ -3,6 +3,6 @@
   "pdf_sha256": "629f4b668ff43abf2a6e621aefd0f50e165ce8e88c52c05769149e1267d033ec",
   "pdf_pages": 147,
   "blocks": 526,
-  "corpus_sha256": "f7a3501ceac29732b8737c722b230a91a3e604280207137c10aa08fedf371714",
+  "corpus_sha256": "3696aad55c319d0cf43125c8aecc2f3a2979c98e76d544340311e96a3ea402e1",
   "extractor": "PyMuPDF 1.26.7; font decoding and geometric fractions/overbars; no LLM"
 }
