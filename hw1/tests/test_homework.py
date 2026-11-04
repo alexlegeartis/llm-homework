@@ -72,13 +72,13 @@ class HomeworkTests(unittest.TestCase):
         self.assertEqual(headers["x-question-id"], "unseen")
         self.assertEqual(headers["x-submission-id"], "unit-test")
 
-    def test_rationale_retains_selected_proof_and_drops_unselected_comment(self):
-        from homework_01_rag.predict import trim_rationale
-        text = "Верны A и C по формуле. Варианты B и D означают постоянство."
-        self.assertEqual(trim_rationale(text, {"A", "C"}), "Верны A и C по формуле.")
-        text = "Варианты A и C эквивалентны условию."
-        self.assertEqual(trim_rationale(text, {"A", "C"}), text)
-        self.assertEqual(trim_rationale("Варианты B и D обсуждаются.", {"A"}), "Варианты B и D обсуждаются.")
+    def test_model_rationale_is_preserved(self):
+        runtime = {"model": "Qwen/Qwen3.5-4B", "generation": {"max_tokens": 512}, "timeout_seconds": 2}
+        answer = {**self.answer, "rationale": "Верны A и C по формуле. Варианты B и D означают постоянство."}
+        with patch.dict("os.environ", {"LLM_BASE_URL": "http://127.0.0.1:1234/v1", "SUBMISSION_ID": "unit-test"}):
+            with patch.object(Client, "complete", return_value=copy.deepcopy(answer)):
+                result = Client(runtime).answer(self.question, [], ["source"], {})
+        self.assertEqual(result["rationale"], answer["rationale"])
 
     def test_latex_json_control_escapes_are_recovered(self):
         runtime = {"model": "Qwen/Qwen3.5-4B", "generation": {"max_tokens": 512}, "timeout_seconds": 2}
