@@ -74,11 +74,26 @@ class HomeworkTests(unittest.TestCase):
 
     def test_model_rationale_is_preserved(self):
         runtime = {"model": "Qwen/Qwen3.5-4B", "generation": {"max_tokens": 512}, "timeout_seconds": 2}
-        answer = {**self.answer, "rationale": "Верны A и C по формуле. Варианты B и D означают постоянство."}
+        answer = {**self.answer, "rationale": "Выбранные варианты следуют из формулы. Её условия выполнены."}
         with patch.dict("os.environ", {"LLM_BASE_URL": "http://127.0.0.1:1234/v1", "SUBMISSION_ID": "unit-test"}):
             with patch.object(Client, "complete", return_value=copy.deepcopy(answer)):
                 result = Client(runtime).answer(self.question, [], ["source"], {})
         self.assertEqual(result["rationale"], answer["rationale"])
+
+    def test_only_unselected_option_commentary_is_removed(self):
+        runtime = {"model": "Qwen/Qwen3.5-4B", "generation": {"max_tokens": 512}, "timeout_seconds": 2}
+        proof = "Варианты A и C следуют из формулы."
+        original = proof + " Варианты B и D означают постоянство."
+        answer = {**self.answer, "answer_ids": ["A", "C"], "rationale": original}
+        trace = {}
+        with patch.dict("os.environ", {"LLM_BASE_URL": "http://127.0.0.1:1234/v1", "SUBMISSION_ID": "unit-test"}):
+            with patch.object(Client, "complete", return_value=answer):
+                result = Client(runtime).answer(self.question, [], ["source"], trace)
+        self.assertEqual(result["rationale"], proof)
+        self.assertEqual(trace["rationale_before_filter"], original)
+        from homework_01_rag.predict import trim_rationale
+        mixed = "Вариант A следует из формулы, а B неверен."
+        self.assertEqual(trim_rationale(mixed, {"A"}), mixed)
 
     def test_latex_json_control_escapes_are_recovered(self):
         runtime = {"model": "Qwen/Qwen3.5-4B", "generation": {"max_tokens": 512}, "timeout_seconds": 2}

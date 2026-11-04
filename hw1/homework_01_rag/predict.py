@@ -55,6 +55,17 @@ def answer_schema(question, citations):
     return {"type": "json_schema", "json_schema": {"name": "answer", "strict": True, "schema": {"oneOf": branches}}}
 
 
+def trim_rationale(text, selected):
+    sentences = re.split(r"(?<=[.!?])\s+(?=[A-ZА-ЯЁ])", text)
+    kept = []
+    for sentence in sentences:
+        labels = set(re.findall(r"\b[A-F]\b", sentence))
+        discusses_options = re.match(r"(?:Вариант\w*|Утверждени\w*|Options?\b|Choices?\b)", sentence, re.IGNORECASE)
+        if not (discusses_options and labels and labels.isdisjoint(selected)):
+            kept.append(sentence)
+    return " ".join(kept) or text
+
+
 def canonical_options(question):
     mapping = {label: option["id"] for label, option in zip("ABCDEF", question["options"])}
     displayed = {**question, "options": [{**option, "id": label} for label, option in zip(mapping, question["options"])]}
@@ -126,6 +137,11 @@ class Client:
         # Recover LaTeX commands accidentally encoded as JSON backspace/form feed.
         if isinstance(answer.get("rationale"), str):
             answer["rationale"] = answer["rationale"].replace("\b", r"\b").replace("\f", r"\f")
+            if not answer.get("abstain"):
+                original = answer["rationale"]
+                answer["rationale"] = trim_rationale(original, set(answer.get("answer_ids", [])))
+                if answer["rationale"] != original:
+                    trace["rationale_before_filter"] = original
         return answer
 
 
