@@ -1,19 +1,19 @@
 {
-  "answer_accuracy": 0.875,
-  "Q": 0.8566666666666667,
-  "mean_input_tokens": 1519.875,
-  "mean_output_tokens": 3113.25,
+  "answer_accuracy": 1,
+  "Q": 0.9658333333333333,
+  "mean_input_tokens": 1499.5,
+  "mean_output_tokens": 3165.875,
   "mean_llm_calls": 1,
-  "mean_cost": 14228.875,
-  "median_latency_ms": 110470.43,
+  "mean_cost": 14419,
+  "median_latency_ms": 117854.34,
   "efficiency_valid": true,
   "E": null,
   "score": null,
   "category_scores": {
-    "conditions": 1.0,
+    "conditions": 0.9666666666666667,
     "comparison": 0.9466666666666668,
-    "calculation": 0.98,
-    "insufficient": 0.5
+    "calculation": 0.95,
+    "insufficient": 1.0
   },
   "questions": [
     {
@@ -28,8 +28,8 @@
       "id": "own_002",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {
@@ -60,8 +60,8 @@
       "id": "own_006",
       "category": "calculation",
       "answer_accuracy": 1,
-      "citation_f1": 0.8,
-      "score": 0.9600000000000001,
+      "citation_f1": 0.5,
+      "score": 0.9,
       "errors": []
     },
     {
@@ -75,9 +75,9 @@
     {
       "id": "own_008",
       "category": "insufficient",
-      "answer_accuracy": 0,
+      "answer_accuracy": 1,
       "citation_f1": 0.0,
-      "score": 0.0,
+      "score": 1.0,
       "errors": []
     }
   ]

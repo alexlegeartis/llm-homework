@@ -46,8 +46,8 @@
   "python": "3.11.15 (main, Jul 23 2026, 14:43:45) [Clang 22.1.3 ]",
   "build": {
     "blocks": 526,
-    "elapsed_seconds": 0.783150728999999,
-    "peak_ram_bytes": 35934208,
+    "elapsed_seconds": 1.1979692749999913,
+    "peak_ram_bytes": 36298752,
     "index_bytes": 13573344,
     "corpus_sha256": "3696aad55c319d0cf43125c8aecc2f3a2979c98e76d544340311e96a3ea402e1"
   },
@@ -65,19 +65,19 @@
     "colab/remote/launch_detached.py": "4d2546c17d627c634815138eff6d54e770e682c871ac149d3c31f736b3dfbf57",
     "colab/remote/nvidia.py": "dd8bb451970051ad7aea3fb7e748432bddebb3f1be852db7fa181d8303a59fc6",
     "colab/remote/pack_outputs.py": "bf67015e9959df2adbdcb808aca9760d3d44bd4f966a2c6dc55c238738531b69",
-    "colab/remote/poll.py": "096cba1e5a4ee99daf803dd6f8c403842abcc9efb2ea0dc43be0b50c6228b3d5",
+    "colab/remote/poll.py": "5608760c3f9fc60d88fb0b1deee18daad8270f567ca01de463439265cfc2ed06",
     "colab/remote/ps_check.py": "10c7230503b5b1921eaac324d388174992f5a2ce4111e27cd22859811651d121",
     "colab/remote/run_sequence.py": "0a761bc3e769a342028f74b3dd429b1fdc3f544ddcbc3fae17f42e78974e328e",
     "colab/remote/setup.py": "184597a660a0cafcf921be633829ba0718923e4a39d4d04ad6aa009aef661b8f",
     "colab/remote/stop_job.py": "543aae85e5395683fa7c199c356040f5fe5ed74a9b478b280722dae593418f2f",
-    "colab/run_hw1.py": "4c44195371b764ecc2248ad513eb8db896779ca078915fdacadd0af5c9b31a9f",
+    "colab/run_hw1.py": "9cff3615e9856e0e7a26e0a17b4a577ec34eec05cfc0c5e34915a64a07a494be",
     "evaluate.py": "8ec430e7b608fb7968d74f68bdadf1d2ca37e45d57d021d60975412006cd3341",
     "homework_01_rag/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
     "homework_01_rag/build_index.py": "1b524d7641a1045c27c1fe91e5e1328857884a15c6b9562ec99d7f9d5dc04b26",
     "homework_01_rag/common.py": "8e11d2f90d6354b266413ae2dcedaf6aaf809df88eef0e97bd69f2b36b62294f",
     "homework_01_rag/evaluate.py": "01fa2f933348f73de4857cb96f48a928dc8ba7b300c3a049da1245e5f8603547",
     "homework_01_rag/pdf_text.py": "32e3a9e962242902e088a15074028a5f127789522a122c7bce5c815fe1c7fc06",
-    "homework_01_rag/predict.py": "5146debae09e595f850e274254bb82d7a2a7c72eb07cc60af0f45b1324d74bfc",
+    "homework_01_rag/predict.py": "70cd11ad0c0649b42ea6d61259dc5cae32fe6e266f38d8e7b6b2711a19dea2c6",
     "homework_01_rag/prepare_data.py": "03ee618b98cb7006fb66656975a4c76fab1ab7d63021714bfdf38146d54064c8",
     "homework_01_rag/retrieval.py": "f1d5aee25edb3ea252b335e9e3ce812ddfaad57a9b1be948db5d9230971dadb4",
     "homework_01_rag/run_experiments.py": "a5763e70ea490e61ea60f3de4a09b7be804e963418cd0a67cd1edba7d0c98b81",
@@ -85,49 +85,17 @@
     "prepare_data.py": "5ce1fec6d63bba4957ae1c25a9aab7cb712e0ce0aaf948b62e2bd8d4b42a3199",
     "prepare_models.py": "1607e439319e838639dc9fd0b2c589ea2e9ee7bd259fc15d197c73bc357737ac",
     "run_experiments.py": "6f1842a34b295b46cb5917c3dc0bf2fe05236078eb6865d5b40094c674232e8e",
-    "tests/test_homework.py": "8ead4d1af5a9bb7e5100af49d922a875cbe2ea2a770dae3c9f3502f559a36221"
+    "tests/test_homework.py": "d2cef46ae48e29bbe52153d74ef7c2f84b4a2ec87b3f972d1005bf2da1e80275"
   },
   "status": {
     "mode": "benchmark",
     "state": "succeeded",
-    "started_utc": "2026-11-04T18:07:43Z",
-    "finished_utc": "2026-11-04T18:26:00Z"
+    "started_utc": "2026-11-04T18:53:58Z",
+    "finished_utc": "2026-11-04T19:15:43Z"
   },
   "dataset": "own_questions.jsonl",
   "question_count": 8,
-  "profile_metadata": {
-    "final": {
-      "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
-      "processor": "x86_64",
-      "logical_cpus": 2,
-      "physical_cpus": 1,
-      "total_ram_bytes": 13605810176,
-      "peak_predictor_ram_bytes": 160301056,
-      "python": "3.11.15",
-      "baseline_reference_cost": null,
-      "runtime_sha256": "1b9424d985819fbd3b14b8155177cb091b6aff5754a5e3c4617845ed2950bf65"
-    },
-    "without_expansion": {
-      "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
-      "processor": "x86_64",
-      "logical_cpus": 2,
-      "physical_cpus": 1,
-      "total_ram_bytes": 13605810176,
-      "peak_predictor_ram_bytes": 160321536,
-      "python": "3.11.15",
-      "baseline_reference_cost": null,
-      "runtime_sha256": "1b9424d985819fbd3b14b8155177cb091b6aff5754a5e3c4617845ed2950bf65"
-    }
-  },
-  "input_sha256": {
-    "own_questions.jsonl": "f53f05c5e84cf0feaa003e8bfdcec68d4fb1af810d3d7e5c9ce971c4db86cbf0",
-    "own_gold.jsonl": "ca48cf56ebb24c9e63a1cee676bdb143038dc2a3742539c813184cc0646f806b",
-    "config.json": "a8fb0c98b869644cc6dbc7720384caa69a398b04344a4a5a6e46d03fc75354b5",
-    "runtime.json": "d9bbce7afab567684bbaa24b0fd67dd1bcf557e019f4e7c5a53294e00da93450",
-    "requirements.txt": "2c204053a98f2586954a6258768b0f7a5854ebf64b3dc6f9407a74d9d9c7b673"
-  },
-  "postprocessed_question_ids": [],
-  "source_commit": "c3542603075cd32c7b65738dfb51c01900ec4f94",
+  "source_commit": "6fbf29ecccff6abb20452ae906ad133cf33bbbc9",
   "source_sha256_lf": {
     "build_index.py": "146fee4929353156fd0988fa4bf7082c378982c979ed21166b56ef0f4f94cce7",
     "colab/bundle.py": "0d64fbe7e20482c933c32ee87b5eeff7c6024bedfe53c2e4325e5ebc1c3781ce",
@@ -142,19 +110,19 @@
     "colab/remote/launch_detached.py": "4d2546c17d627c634815138eff6d54e770e682c871ac149d3c31f736b3dfbf57",
     "colab/remote/nvidia.py": "dd8bb451970051ad7aea3fb7e748432bddebb3f1be852db7fa181d8303a59fc6",
     "colab/remote/pack_outputs.py": "bf67015e9959df2adbdcb808aca9760d3d44bd4f966a2c6dc55c238738531b69",
-    "colab/remote/poll.py": "096cba1e5a4ee99daf803dd6f8c403842abcc9efb2ea0dc43be0b50c6228b3d5",
+    "colab/remote/poll.py": "5608760c3f9fc60d88fb0b1deee18daad8270f567ca01de463439265cfc2ed06",
     "colab/remote/ps_check.py": "10c7230503b5b1921eaac324d388174992f5a2ce4111e27cd22859811651d121",
     "colab/remote/run_sequence.py": "0a761bc3e769a342028f74b3dd429b1fdc3f544ddcbc3fae17f42e78974e328e",
     "colab/remote/setup.py": "184597a660a0cafcf921be633829ba0718923e4a39d4d04ad6aa009aef661b8f",
     "colab/remote/stop_job.py": "543aae85e5395683fa7c199c356040f5fe5ed74a9b478b280722dae593418f2f",
-    "colab/run_hw1.py": "4c44195371b764ecc2248ad513eb8db896779ca078915fdacadd0af5c9b31a9f",
+    "colab/run_hw1.py": "9cff3615e9856e0e7a26e0a17b4a577ec34eec05cfc0c5e34915a64a07a494be",
     "evaluate.py": "8ec430e7b608fb7968d74f68bdadf1d2ca37e45d57d021d60975412006cd3341",
     "homework_01_rag/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
     "homework_01_rag/build_index.py": "1b524d7641a1045c27c1fe91e5e1328857884a15c6b9562ec99d7f9d5dc04b26",
     "homework_01_rag/common.py": "35e53133cdfc29e2ae67aad3fc982b2d9b301ddd93a12a24706cf3e1178efe59",
     "homework_01_rag/evaluate.py": "01fa2f933348f73de4857cb96f48a928dc8ba7b300c3a049da1245e5f8603547",
     "homework_01_rag/pdf_text.py": "32e3a9e962242902e088a15074028a5f127789522a122c7bce5c815fe1c7fc06",
-    "homework_01_rag/predict.py": "5146debae09e595f850e274254bb82d7a2a7c72eb07cc60af0f45b1324d74bfc",
+    "homework_01_rag/predict.py": "70cd11ad0c0649b42ea6d61259dc5cae32fe6e266f38d8e7b6b2711a19dea2c6",
     "homework_01_rag/prepare_data.py": "03ee618b98cb7006fb66656975a4c76fab1ab7d63021714bfdf38146d54064c8",
     "homework_01_rag/retrieval.py": "40cdfbb182cb70dd1d1d818c857d73be0adec9eb16a3964f1a09623863dd4c42",
     "homework_01_rag/run_experiments.py": "a5763e70ea490e61ea60f3de4a09b7be804e963418cd0a67cd1edba7d0c98b81",
@@ -162,6 +130,38 @@
     "prepare_data.py": "5ce1fec6d63bba4957ae1c25a9aab7cb712e0ce0aaf948b62e2bd8d4b42a3199",
     "prepare_models.py": "1607e439319e838639dc9fd0b2c589ea2e9ee7bd259fc15d197c73bc357737ac",
     "run_experiments.py": "6f1842a34b295b46cb5917c3dc0bf2fe05236078eb6865d5b40094c674232e8e",
-    "tests/test_homework.py": "8ead4d1af5a9bb7e5100af49d922a875cbe2ea2a770dae3c9f3502f559a36221"
-  }
+    "tests/test_homework.py": "d2cef46ae48e29bbe52153d74ef7c2f84b4a2ec87b3f972d1005bf2da1e80275"
+  },
+  "profile_metadata": {
+    "final": {
+      "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "logical_cpus": 2,
+      "physical_cpus": 1,
+      "total_ram_bytes": 13605818368,
+      "peak_predictor_ram_bytes": 160178176,
+      "python": "3.11.15",
+      "baseline_reference_cost": null,
+      "runtime_sha256": "1b9424d985819fbd3b14b8155177cb091b6aff5754a5e3c4617845ed2950bf65"
+    },
+    "without_expansion": {
+      "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "logical_cpus": 2,
+      "physical_cpus": 1,
+      "total_ram_bytes": 13605818368,
+      "peak_predictor_ram_bytes": 160477184,
+      "python": "3.11.15",
+      "baseline_reference_cost": null,
+      "runtime_sha256": "1b9424d985819fbd3b14b8155177cb091b6aff5754a5e3c4617845ed2950bf65"
+    }
+  },
+  "input_sha256": {
+    "own_questions.jsonl": "f53f05c5e84cf0feaa003e8bfdcec68d4fb1af810d3d7e5c9ce971c4db86cbf0",
+    "own_gold.jsonl": "ca48cf56ebb24c9e63a1cee676bdb143038dc2a3742539c813184cc0646f806b",
+    "config.json": "a8fb0c98b869644cc6dbc7720384caa69a398b04344a4a5a6e46d03fc75354b5",
+    "runtime.json": "d9bbce7afab567684bbaa24b0fd67dd1bcf557e019f4e7c5a53294e00da93450",
+    "requirements.txt": "2c204053a98f2586954a6258768b0f7a5854ebf64b3dc6f9407a74d9d9c7b673"
+  },
+  "postprocessed_question_ids": []
 }
