@@ -122,9 +122,11 @@ def predict(questions, folder):
     check_trace(folder, len(Path(questions).read_text().splitlines()))
 
 
-def benchmark(names):
-    destination = OUT / 'benchmark'
-    common = ['--index', 'index', '--questions', 'dev_questions.jsonl', '--gold', 'dev_gold.jsonl', '--config', 'config.json']
+def benchmark(names, dataset):
+    destination = OUT / ('benchmark' if dataset == 'dev' else 'own')
+    questions = f'{dataset}_questions.jsonl'
+    expected = len((ROOT / questions).read_text().splitlines())
+    common = ['--index', 'index', '--questions', questions, '--gold', f'{dataset}_gold.jsonl', '--config', 'config.json']
 
     def variant(name):
         folder = destination / '.parts' / name
@@ -132,12 +134,15 @@ def benchmark(names):
         with (folder / 'run.log').open('w') as log:
             run(sys.executable, 'run_experiments.py', *common, '--output-dir', folder, '--names', name, stdout=log, stderr=subprocess.STDOUT)
         source = folder / 'experiments' / name
-        check_trace(source, 15)
+        check_trace(source, expected)
         shutil.copytree(source, destination / 'experiments' / name, dirs_exist_ok=True)
 
     with ThreadPoolExecutor(max_workers=len(names)) as pool:
         list(pool.map(variant, names))
     run(sys.executable, 'run_experiments.py', *common, '--output-dir', destination, '--summarize-only')
+    if dataset == 'own':
+        for kind in ('answers', 'trace'):
+            (destination / f'dev_{kind}.jsonl').replace(destination / f'own_{kind}.jsonl')
     metadata = {name: json.loads((destination / '.parts' / name / 'run_metadata.json').read_text()) for name in names}
     (destination / 'run_metadata.json').write_text(json.dumps(metadata, indent=2))
     print((destination / 'experiments.csv').read_text(), flush=True)
@@ -147,6 +152,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', choices=['smoke', 'benchmark', 'serve'], default='smoke')
     parser.add_argument('--names', nargs='+', choices=VARIANTS, default=VARIANTS)
+    parser.add_argument('--dataset', choices=['dev', 'own'], default='dev')
     args = parser.parse_args()
     bootstrap()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -164,7 +170,7 @@ def main():
             sample.write_text('\n'.join((ROOT / 'dev_questions.jsonl').read_text().splitlines()[:3]) + '\n')
             predict(sample, OUT / 'smoke')
         elif args.mode == 'benchmark':
-            benchmark(args.names)
+            benchmark(args.names, args.dataset)
         else:
             while server.poll() is None:
                 time.sleep(1)

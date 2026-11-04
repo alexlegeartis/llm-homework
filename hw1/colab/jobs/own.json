@@ -1,0 +1,12 @@
+[
+  [
+    "colab/run_hw1.py",
+    "--mode",
+    "benchmark",
+    "--dataset",
+    "own",
+    "--names",
+    "final",
+    "without_expansion"
+  ]
+]
