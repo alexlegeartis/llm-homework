@@ -8,16 +8,14 @@
 
 Код находится в `homework_01_rag/`; CLI, настройки, результаты и все материалы задания собраны в `hw1/`. Корпус, индекс, веса и окружения исключены из Git. Файлы из ошибочного списка «В комплекте» подготовлены самостоятельно согласно уточнению преподавателя.
 
-## Подготовка
+## Воспроизведение из исходников
 
-Python **3.11**. Из корня репозитория сначала перейдите в папку задания:
+Нужен Python **3.11**. Команды для Linux, начиная с корня репозитория:
 
-```powershell
+```bash
 cd hw1
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-. .\project_env.ps1
-py -3.11 -m venv .venv
-.\.venv\Scripts\Activate.ps1
+python3.11 -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt
 python prepare_data.py
 python prepare_models.py --config config.json
@@ -26,33 +24,35 @@ python build_index.py --corpus homework_01_rag/data/corpus.jsonl --output index 
 
 Все последующие команды выполняются из `hw1/`.
 
-Если `py` не видит Python 3.11: `uv venv --python 3.11 --seed .venv`. На рабочем компьютере `.venv` уже подготовлено. `project_env.ps1` задаёт TEMP/TMP, кэши pip, uv, Hugging Face и каталог установок Python внутри `.cache/work` на D. Настройки действуют в текущем процессе и его дочерних процессах. На Linux: `python3.11 -m venv .venv`, затем `source .venv/bin/activate`; PowerShell-скрипт не требуется.
+`prepare_data.py` скачивает исходный PDF по публичной ссылке из условия, проверяет SHA-256 и извлекает **все 147 страниц**. Для уже скачанного учебника: `python prepare_data.py --pdf /path/to/textbook.pdf`. Исходные QA находятся в Git: `homework_01_rag/materials/tfkp_15_qa.md`. Генерация JSONL и разбиение корпуса выполняются кодом.
 
-`prepare_data.py` скачивает учебник, проверяет SHA-256 и создаёт корпус **всех 147 страниц**, dev-набор и восемь авторских вопросов. Для локального PDF: `python prepare_data.py --pdf /path/to/textbook.pdf`. Преобразования формул и разбиение воспроизводимы; ручная правка корпуса не нужна.
+| Код | Что создаёт |
+| --- | --- |
+| `prepare_data.py`, `homework_01_rag/pdf_text.py` | `homework_01_rag/data/corpus.jsonl`, `dev_questions.jsonl`, `dev_gold.jsonl`, `own_questions.jsonl`, `own_gold.jsonl`, `corpus_manifest.json` |
+| `prepare_models.py` | Закреплённый токенизатор в `.cache/qwen-tokenizer/` с проверкой SHA-256 |
+| `build_index.py` | Индекс, копию токенизатора и метрики сборки внутри `--output` |
+| `predict.py` | Ответы и trace по вопросам через Qwen API |
+| `run_experiments.py` | Пять конфигураций, их ответы и trace, `experiments.csv`, итоговые dev-файлы и метаданные |
 
-`prepare_models.py` заранее скачивает закреплённый токенизатор Qwen и проверяет SHA-256. Он копируется в индекс при сборке. Поиск — BM25 на CPU, отдельная embedding-модель не нужна. Сборка индекса и ответы не скачивают файлы и не используют внешние источники.
+Исходники извлечения PDF, преобразования формул и генерации всех наборов включены в `homework_01_rag/`. Ручная правка промежуточных данных не требуется. Корпус, индекс, веса, окружение и кэши исключены из Git.
+
+4 ноября 2026 проверена чистая выгрузка исходников из Git без готовых JSONL, корпуса, индекса и кэшей: скачаны PDF и токенизатор, заново собраны 526 блоков, 15 dev-вопросов, 8 авторских вопросов и индекс. Данные и файлы индекса побайтово совпали с сохранёнными результатами.
 
 ## Qwen
 
-Нужен OpenAI-совместимый Chat Completions endpoint с **Qwen3.5-4B**. Проверяющий подставляет собственный endpoint.
+Для генерации нужен OpenAI-совместимый Chat Completions endpoint с **Qwen3.5-4B**. Укажите его адрес, модель и ключ в переменных ниже; проверяющий подставляет свой endpoint. Модель, ревизии, sampling, thinking и лимиты закреплены в [runtime.json](runtime.json).
 
-Для разработки на Windows можно в отдельном терминале запустить:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File serve_model.ps1
-```
-
-Скрипт скачает закреплённые llama.cpp и Qwen3.5-4B Q8_0, проверит SHA-256 и запустит API на `127.0.0.1:8089`. Скачивание весов — около 4,5 ГБ. Сервер работает отдельным процессом; четыре независимых запроса имеют по 8192 токена контекста. Для Linux можно использовать [llama.cpp b11669](https://github.com/ggml-org/llama.cpp/releases/tag/b11669) с аргументами из скрипта. Модель, ревизии, sampling, thinking и лимиты закреплены в [runtime.json](runtime.json).
+Полный запуск с загрузкой Qwen и Linux-сборки llama.cpp на T4 описан в [инструкции Colab](colab/README.md). Для локального запуска клиента достаточно Python, зависимостей и доступного API.
 
 ## Предсказание
 
 В терминале с активным окружением:
 
-```powershell
-$env:LLM_BASE_URL = "http://127.0.0.1:8089/v1"
-$env:LLM_MODEL = "Qwen/Qwen3.5-4B"
-$env:LLM_API_KEY = "local"
-$env:SUBMISSION_ID = "kravatskiy-hw1"
+```bash
+export LLM_BASE_URL="http://127.0.0.1:8089/v1"
+export LLM_MODEL="Qwen/Qwen3.5-4B"
+export LLM_API_KEY="local"
+export SUBMISSION_ID="kravatskiy-hw1"
 python predict.py --index index --questions dev_questions.jsonl --output answers.jsonl --trace trace.jsonl --config config.json
 ```
 
@@ -71,7 +71,7 @@ python predict.py --index index --questions dev_questions.jsonl --output answers
 
 ## Оценка и эксперименты
 
-```powershell
+```bash
 python evaluate.py --questions dev_questions.jsonl --gold dev_gold.jsonl --answers dev_answers.jsonl --trace dev_trace.jsonl --corpus homework_01_rag/data/corpus.jsonl
 python run_experiments.py --index index --questions dev_questions.jsonl --gold dev_gold.jsonl --config config.json --output-dir .
 python -m unittest discover -s tests -v
@@ -94,3 +94,19 @@ python -m unittest discover -s tests -v
 ## Отладка на Colab
 
 Подключение T4, запуск и получение результатов описаны в [colab/README.md](colab/README.md).
+
+## Локальные инструменты Windows
+
+Подготовка окружения в PowerShell из `hw1/`:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+. ./project_env.ps1
+py -3.11 -m venv .venv
+. ./.venv/Scripts/Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+Если `py` не видит Python 3.11, окружение можно создать командой `uv venv --python 3.11 --seed .venv`. Остальные Python-команды совпадают с приведёнными выше; переменные окружения задаются как `$env:LLM_BASE_URL = "..."`.
+
+`project_env.ps1` направляет локальные временные файлы и кэши в `.cache/work` на D. Для запуска локального Qwen есть `powershell -ExecutionPolicy Bypass -File serve_model.ps1`: он скачивает закреплённые Qwen3.5-4B Q8_0 и llama.cpp, проверяет SHA-256 и открывает API на `127.0.0.1:8089`.

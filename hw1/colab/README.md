@@ -1,6 +1,23 @@
 # Colab (T4)
 
-Утилиты подключения перенесены из `D:/GitHubD/KissingNumber27/colab` и адаптированы для этого задания. Нужен установленный `colab-cli` (проверено с 0.6.0). Авторизация Google общая для проектов; токены и файлы сессий не копируются в репозиторий.
+## Запуск в ноутбуке Colab
+
+Выберите среду с T4 и выполните ячейки:
+
+```python
+!git clone https://github.com/alexlegeartis/llm-homework.git /content/llm-homework
+%cd /content/llm-homework/hw1
+!python -m pip install --quiet uv==0.12.1
+!python -m uv run --no-project --python 3.11.15 --with-requirements requirements.txt python -u colab/run_hw1.py --mode benchmark
+```
+
+Этот запуск использует Python 3.11 и зависимости из `requirements.txt`. Скрипт скачивает PDF, создаёт корпус и вопросы, готовит токенизатор и индекс, загружает закреплённые GGUF и Linux/CUDA-сборку llama.cpp и выполняет пять конфигураций. Результаты находятся в `/content/out/`, состояние — в `/content/out/status.json`. Все данные создаются кодом репозитория; CLI `build_index.py` и `predict.py` вызываются самим скриптом.
+
+Для трёх пробных вопросов замените `--mode benchmark` на `--mode smoke`.
+
+## Управление из Windows
+
+Утилиты подключения адаптированы из `KissingNumber27/colab`. Нужен установленный `colab-cli` (проверено с 0.6.0). Авторизация Google общая для проектов; токены и файлы сессий не копируются в репозиторий.
 
 Команды выполняются из `hw1/` (из корня репозитория сначала `cd hw1`):
 
