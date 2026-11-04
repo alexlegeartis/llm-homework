@@ -13,9 +13,9 @@ if status.exists():
 for path in sorted(out.rglob('*')):
     if path.is_file() and '.parts' not in path.parts:
         print('FILE', path.relative_to(out).as_posix(), path.stat().st_size)
-for trace in sorted(out.glob("benchmark/.parts/*/experiments/*/trace.jsonl")):
+for trace in sorted(out.glob("*/.parts/*/experiments/*/trace.jsonl")):
     lines = trace.read_text().splitlines()
-    print("PROGRESS", trace.parent.name, f"{len(lines)}/15")
+    print("PROGRESS", trace.relative_to(out), len(lines), "answers")
     runlog = trace.parents[2] / "run.log"
     if runlog.exists():
         print("\n".join(runlog.read_text(errors="replace").splitlines()[-2:]))

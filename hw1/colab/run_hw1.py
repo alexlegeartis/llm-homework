@@ -140,7 +140,7 @@ def benchmark(names, dataset):
     with ThreadPoolExecutor(max_workers=len(names)) as pool:
         list(pool.map(variant, names))
     run(sys.executable, 'run_experiments.py', *common, '--output-dir', destination, '--summarize-only')
-    if dataset == 'own':
+    if dataset == 'own' and (destination / 'dev_answers.jsonl').exists():
         for kind in ('answers', 'trace'):
             (destination / f'dev_{kind}.jsonl').replace(destination / f'own_{kind}.jsonl')
     metadata = {name: json.loads((destination / '.parts' / name / 'run_metadata.json').read_text()) for name in names}

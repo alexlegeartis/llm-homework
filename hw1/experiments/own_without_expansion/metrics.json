@@ -1,0 +1,84 @@
+{
+  "answer_accuracy": 1,
+  "Q": 0.9583333333333334,
+  "mean_input_tokens": 1590.625,
+  "mean_output_tokens": 3205.875,
+  "mean_llm_calls": 1,
+  "mean_cost": 14670.125,
+  "median_latency_ms": 111046.45,
+  "efficiency_valid": true,
+  "E": null,
+  "score": null,
+  "category_scores": {
+    "conditions": 1.0,
+    "comparison": 0.9333333333333333,
+    "calculation": 0.9,
+    "insufficient": 1.0
+  },
+  "questions": [
+    {
+      "id": "own_001",
+      "category": "conditions",
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "own_002",
+      "category": "conditions",
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "own_003",
+      "category": "comparison",
+      "answer_accuracy": 1,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
+      "errors": []
+    },
+    {
+      "id": "own_004",
+      "category": "comparison",
+      "answer_accuracy": 1,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
+      "errors": []
+    },
+    {
+      "id": "own_005",
+      "category": "calculation",
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "own_006",
+      "category": "calculation",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 0.8,
+      "errors": []
+    },
+    {
+      "id": "own_007",
+      "category": "insufficient",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    },
+    {
+      "id": "own_008",
+      "category": "insufficient",
+      "answer_accuracy": 1,
+      "citation_f1": 0.0,
+      "score": 1.0,
+      "errors": []
+    }
+  ]
+}

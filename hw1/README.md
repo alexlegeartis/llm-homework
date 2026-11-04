@@ -16,7 +16,7 @@
 | --- | --- |
 | [`homework_01_rag/`](homework_01_rag/) | Реализация: извлечение PDF, BM25, подготовка контекста, вызов Qwen и оценка. Внутри есть карта модулей. |
 | [`homework_01_rag/materials/`](homework_01_rag/materials/) | Исходное условие и 15 QA-пар преподавателя. Из них код получает ссылку на PDF и создаёт dev-набор. |
-| [`experiments/`](experiments/) | Результаты пяти конфигураций; назначение подпапок и форматы файлов описаны внутри. |
+| [`experiments/`](experiments/) | Результаты пяти способов ответа на 15 вопросах из условия и дополнительной проверки на восьми своих вопросах. Подпапки описаны внутри. |
 | [`tests/`](tests/) | Необязательные технические проверки кода; состав и команда запуска описаны внутри. |
 | [`colab/`](colab/) | Дополнительные инструменты запуска того же решения на T4 и получения результатов. Внутри — инструкция и карта служебных файлов. |
 
@@ -28,7 +28,7 @@
 | [`predict.py`](predict.py), [`evaluate.py`](evaluate.py), [`run_experiments.py`](run_experiments.py) | Предсказание, оценка и воспроизведение пяти экспериментов. Одноимённые модули в `homework_01_rag/` содержат реализацию; эти файлы — короткие CLI-точки входа. |
 | [`config.json`](config.json), [`runtime.json`](runtime.json), [`requirements.txt`](requirements.txt) | Настройки поиска, модель и параметры генерации, закреплённые зависимости. |
 | [`dev_questions.jsonl`](dev_questions.jsonl), [`dev_gold.jsonl`](dev_gold.jsonl) | 15 вопросов из исходных QA и эталоны для оценки. Предсказание получает только вопросы. |
-| [`own_questions.jsonl`](own_questions.jsonl), [`own_gold.jsonl`](own_gold.jsonl) | 8 авторских вопросов и их эталоны, по два на категорию. |
+| [`own_questions.jsonl`](own_questions.jsonl), [`own_gold.jsonl`](own_gold.jsonl) | 8 подготовленных мною вопросов и правильные ответы с подтверждающими фрагментами. |
 | [`dev_answers.jsonl`](dev_answers.jsonl), [`dev_trace.jsonl`](dev_trace.jsonl) | Сохранённый итоговый dev-прогон: ответы и журнал вызовов, токенов, времени и найденных блоков. |
 | [`experiments.csv`](experiments.csv), [`report.md`](report.md) | Сводные результаты и отчёт с методом, абляциями, ошибками и измерениями. |
 | [`corpus_manifest.json`](corpus_manifest.json), [`run_metadata.json`](run_metadata.json) | Дополнительные сведения для проверки воспроизводимости: хеши исходников данных, параметры и окружение прогона. |
