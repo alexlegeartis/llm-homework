@@ -92,7 +92,7 @@ export SUBMISSION_ID="kravatskiy-hw1"
 python predict.py --index index --questions dev_questions.jsonl --output answers.jsonl --trace trace.jsonl --config config.json
 ```
 
-В `--output` записываются ответы, в `--trace` — журнал обработки. Пути CLI могут быть абсолютными; запуск возможен из другой папки. [Формат ответов](homework_01_rag/materials/homework_01_rag.md#3-форматы) заданы условием.
+В `--output` записываются ответы, в `--trace` отладочные данные. Пути CLI могут быть абсолютными; запуск возможен из другой папки. [Формат ответов](homework_01_rag/materials/homework_01_rag.md#3-форматы) задан условием.
 
 ## Архитектура
 

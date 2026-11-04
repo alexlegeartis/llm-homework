@@ -88,7 +88,7 @@ class HomeworkTests(unittest.TestCase):
         trace = {}
         with patch.dict("os.environ", {"LLM_BASE_URL": "http://127.0.0.1:1234/v1", "SUBMISSION_ID": "unit-test"}):
             with patch.object(Client, "complete", return_value=answer):
-                result = Client(runtime).answer(self.question, [], ["source"], trace)
+                result = Client(runtime).answer({**self.question, "options": [{"id": label, "text": label} for label in "ABCD"]}, [], ["source"], trace)
         self.assertEqual(result["rationale"], proof)
         self.assertEqual(trace["rationale_before_filter"], original)
         from homework_01_rag.predict import trim_rationale
@@ -105,12 +105,12 @@ class HomeworkTests(unittest.TestCase):
         self.assertEqual(result["rationale"], r"\frac{1}{2}, \bar z")
         self.assertEqual(validate_answer(result, self.question, ["source"]), [])
 
-    def test_prediction_maps_labels_to_original_option_ids(self):
+    def test_prediction_preserves_original_option_ids(self):
         runtime = {"model": "Qwen/Qwen3.5-4B", "generation": {"max_tokens": 512}, "timeout_seconds": 2}
         config = {"runtime_settings": runtime, "mode": "baseline", "retrieval": {"neighbors": False, "query_expansion": False}}
         source = {"block_id": "source", "page": 1, "section": "test", "text": "Reference text."}
         index = SimpleNamespace(retrieve=lambda *args: [source])
-        model_answer = {**{k: v for k, v in self.answer.items() if k != "id"}, "answer_ids": ["A", "A", "B"], "citations": ["source", "source"]}
+        model_answer = {**{k: v for k, v in self.answer.items() if k != "id"}, "answer_ids": ["Z", "Z", "Y"], "citations": ["source", "source"]}
         response = {"id": "response-2", "model": runtime["model"], "usage": {"prompt_tokens": 50, "completion_tokens": 20}, "choices": [{"finish_reason": "stop", "message": {"content": json.dumps(model_answer)}}]}
         with TemporaryDirectory() as temporary:
             output, trace = Path(temporary) / "answers.jsonl", Path(temporary) / "trace.jsonl"
@@ -119,7 +119,29 @@ class HomeworkTests(unittest.TestCase):
                     predict(index, [self.question], output, trace, config)
             self.assertEqual(json.loads(output.read_text(encoding="utf-8")), self.answer)
             payload = json.loads(request.call_args.args[0].data)
-            self.assertIn("A. Z\nB. Y\nC. X\nD. W", payload["messages"][1]["content"])
+            self.assertIn("Z. Z\nY. Y\nX. X\nW. W", payload["messages"][1]["content"])
+
+    def test_shuffled_option_ids_match_the_rationale(self):
+        runtime = {"model": "Qwen/Qwen3.5-4B", "generation": {"max_tokens": 512}, "timeout_seconds": 2}
+        config = {"runtime_settings": runtime, "mode": "baseline", "retrieval": {"neighbors": False}}
+        question = {**self.question, "options": [{"id": label, "text": label} for label in ["D", "A", "C", "B"]]}
+        source = {"block_id": "source", "page": 1, "section": "test", "text": "Reference text."}
+        index = SimpleNamespace(retrieve=lambda *args: [source])
+        def endpoint(request, **kwargs):
+            payload = json.loads(request.data)
+            schema = payload["response_format"]["json_schema"]["schema"]["oneOf"][0]
+            label = schema["properties"]["answer_ids"]["items"]["enum"][0]
+            answer = {"answer_ids": [label], "abstain": False, "rationale": f"Вариант {label} подтверждается источником.", "citations": ["source"]}
+            response = {"usage": {"prompt_tokens": 50, "completion_tokens": 20}, "choices": [{"finish_reason": "stop", "message": {"content": json.dumps(answer)}}]}
+            return io.BytesIO(json.dumps(response).encode())
+        with TemporaryDirectory() as temporary:
+            output, trace = Path(temporary) / "answers.jsonl", Path(temporary) / "trace.jsonl"
+            with patch.dict("os.environ", {"LLM_BASE_URL": "http://127.0.0.1:1234/v1", "SUBMISSION_ID": "unit-test"}):
+                with patch("urllib.request.urlopen", side_effect=endpoint):
+                    self.assertEqual(predict(index, [question], output, trace, config), 0)
+            answer = json.loads(output.read_text(encoding="utf-8"))
+        self.assertEqual(answer["answer_ids"], ["D"])
+        self.assertEqual(answer["rationale"], "Вариант D подтверждается источником.")
 
     def test_final_refusal_keeps_reason_and_usage_and_clears_lists(self):
         runtime = {"model": "Qwen/Qwen3.5-4B", "generation": {"max_tokens": 512}, "timeout_seconds": 2}

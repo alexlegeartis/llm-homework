@@ -55,21 +55,16 @@ def answer_schema(question, citations):
     return {"type": "json_schema", "json_schema": {"name": "answer", "strict": True, "schema": {"oneOf": branches}}}
 
 
-def trim_rationale(text, selected):
+def trim_rationale(text, selected, options="ABCDEF"):
     sentences = re.split(r"(?<=[.!?])\s+(?=[A-ZА-ЯЁ])", text)
+    label_pattern = r"(?<!\w)(?:" + "|".join(re.escape(label) for label in options) + r")(?!\w)"
     kept = []
     for sentence in sentences:
-        labels = set(re.findall(r"\b[A-F]\b", sentence))
+        labels = set(re.findall(label_pattern, sentence))
         discusses_options = re.match(r"(?:Вариант\w*|Утверждени\w*|Options?\b|Choices?\b)", sentence, re.IGNORECASE)
         if not (discusses_options and labels and labels.isdisjoint(selected)):
             kept.append(sentence)
     return " ".join(kept) or text
-
-
-def canonical_options(question):
-    mapping = {label: option["id"] for label, option in zip("ABCDEF", question["options"])}
-    displayed = {**question, "options": [{**option, "id": label} for label, option in zip(mapping, question["options"])]}
-    return displayed, mapping
 
 
 def validate_answer(record, question, blocks, no_context=False):
@@ -139,7 +134,7 @@ class Client:
             answer["rationale"] = answer["rationale"].replace("\b", r"\b").replace("\f", r"\f")
             if not answer.get("abstain"):
                 original = answer["rationale"]
-                answer["rationale"] = trim_rationale(original, set(answer.get("answer_ids", [])))
+                answer["rationale"] = trim_rationale(original, set(answer.get("answer_ids", [])), [option["id"] for option in question["options"]])
                 if answer["rationale"] != original:
                     trace["rationale_before_filter"] = original
         return answer
@@ -174,15 +169,12 @@ def predict(index, questions, output, trace_path, config):
                 if queries is not None:
                     trace["search_queries"] = queries
                 candidates = index.retrieve(question, config["retrieval"], mode, queries)
-                displayed, option_ids = canonical_options(question)
                 budget = min(8192 - generation["max_tokens"], config["retrieval"].get("input_budget", 3000)) if tokenizer is not None else 8192 - generation["max_tokens"]
-                messages, selected = make_messages(displayed, candidates, budget, mode == "no_context", tokenizer)
+                messages, selected = make_messages(question, candidates, budget, mode == "no_context", tokenizer)
                 trace["retrieved_block_ids"] = selected
                 trace["retrieval_candidates"] = [block["block_id"] for block in candidates]
-                if any(label != identifier for label, identifier in option_ids.items()):
-                    trace["option_id_map"] = option_ids
-                answer = client.answer(displayed, messages, selected, trace)
-                answer["answer_ids"] = list(dict.fromkeys(option_ids[label] for label in answer["answer_ids"]))
+                answer = client.answer(question, messages, selected, trace)
+                answer["answer_ids"] = list(dict.fromkeys(answer["answer_ids"]))
                 answer["citations"] = list(dict.fromkeys(answer["citations"]))
                 if answer["abstain"]:
                     answer["answer_ids"], answer["citations"] = [], []
