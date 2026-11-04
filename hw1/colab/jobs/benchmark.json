@@ -2,6 +2,8 @@
   [
     "colab/run_hw1.py",
     "--mode",
-    "benchmark"
+    "benchmark",
+    "--replicas",
+    "2"
   ]
 ]

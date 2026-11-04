@@ -103,6 +103,8 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ./colab/run.ps1 -Project ./colab/project.json -Sync -Job ./colab/jobs/own.json
 ```
 
+Полный пресет запускает две копии Qwen на одной T4 и распределяет пять вариантов между ними. Веса и параметры генерации одинаковы. При запуске в ноутбуке добавьте `--replicas 2` для такого же режима. По умолчанию `run_hw1.py` запускает одну копию.
+
 Для полного прогона:
 
 ```powershell

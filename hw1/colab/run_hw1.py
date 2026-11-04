@@ -90,18 +90,18 @@ def prepare():
     return runtime, model, server
 
 
-def serve(runtime, model, binary):
+def serve(runtime, model, binary, port=8089):
     settings = runtime['local_server']
     threads = min(settings['threads'], os.cpu_count() or 2)
-    command = [str(binary), '-m', str(model), '--host', '127.0.0.1', '--port', '8089', '--ctx-size', str(settings['context_size'] * settings['parallel']), '--parallel', str(settings['parallel']), '--threads', str(threads), '--threads-batch', str(threads), '--batch-size', '256', '--ubatch-size', '128', '--jinja', '--alias', runtime['model'], '--cache-ram', '0', '--no-repack', '--n-gpu-layers', '99']
-    with (OUT / 'server.log').open('w') as log:
+    command = [str(binary), '-m', str(model), '--host', '127.0.0.1', '--port', str(port), '--ctx-size', str(settings['context_size'] * settings['parallel']), '--parallel', str(settings['parallel']), '--threads', str(threads), '--threads-batch', str(threads), '--batch-size', '256', '--ubatch-size', '128', '--jinja', '--alias', runtime['model'], '--cache-ram', '0', '--no-repack', '--n-gpu-layers', '99']
+    with (OUT / ('server.log' if port == 8089 else f'server-{port}.log')).open('w') as log:
         process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT, cwd=ROOT)
     deadline = time.monotonic() + 300
     while time.monotonic() < deadline and process.poll() is None:
         try:
-            with urllib.request.urlopen('http://127.0.0.1:8089/health', timeout=3) as response:
+            with urllib.request.urlopen(f'http://127.0.0.1:{port}/health', timeout=3) as response:
                 if response.status == 200:
-                    print('Qwen server ready', flush=True)
+                    print(f'Qwen server ready on port {port}', flush=True)
                     return process
         except OSError:
             time.sleep(1)
@@ -122,17 +122,19 @@ def predict(questions, folder):
     check_trace(folder, len(Path(questions).read_text().splitlines()))
 
 
-def benchmark(names, dataset):
+def benchmark(names, dataset, replicas=1):
     destination = OUT / ('benchmark' if dataset == 'dev' else 'own')
     questions = f'{dataset}_questions.jsonl'
     expected = len((ROOT / questions).read_text().splitlines())
     common = ['--index', 'index', '--questions', questions, '--gold', f'{dataset}_gold.jsonl', '--config', 'config.json']
 
     def variant(name):
+        endpoint = f'http://127.0.0.1:{8089 + names.index(name) % replicas}/v1'
+        env = dict(os.environ, LLM_BASE_URL=endpoint)
         folder = destination / '.parts' / name
         folder.mkdir(parents=True, exist_ok=True)
         with (folder / 'run.log').open('w') as log:
-            run(sys.executable, 'run_experiments.py', *common, '--output-dir', folder, '--names', name, stdout=log, stderr=subprocess.STDOUT)
+            run(sys.executable, 'run_experiments.py', *common, '--output-dir', folder, '--names', name, stdout=log, stderr=subprocess.STDOUT, env=env)
         source = folder / 'experiments' / name
         check_trace(source, expected)
         shutil.copytree(source, destination / 'experiments' / name, dirs_exist_ok=True)
@@ -153,26 +155,32 @@ def main():
     parser.add_argument('--mode', choices=['smoke', 'benchmark', 'serve'], default='smoke')
     parser.add_argument('--names', nargs='+', choices=VARIANTS, default=VARIANTS)
     parser.add_argument('--dataset', choices=['dev', 'own'], default='dev')
+    parser.add_argument('--replicas', type=int, choices=[1, 2], default=1)
     args = parser.parse_args()
     bootstrap()
     OUT.mkdir(parents=True, exist_ok=True)
     status_file = OUT / 'status.json'
     status = {'mode': args.mode, 'state': 'running', 'started_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}
     status_file.write_text(json.dumps(status, indent=2))
-    server = None
+    servers = []
     try:
         runtime, model, binary = prepare()
         metadata = {'runtime': runtime, 'gpu': subprocess.check_output(['nvidia-smi', '--query-gpu=name,memory.total,driver_version', '--format=csv,noheader'], text=True).strip(), 'python': sys.version, 'build': json.loads((ROOT / 'index/build_metrics.json').read_text()), 'source_sha256': {str(path.relative_to(ROOT)): digest(path) for path in sorted(ROOT.rglob('*.py')) if '.cache' not in path.parts and 'index' not in path.parts}}
+        for replica in range(args.replicas):
+            servers.append(serve(runtime, model, binary, 8089 + replica))
+        metadata['server_replicas'] = args.replicas
+        metadata['profile_endpoints'] = {name: f'http://127.0.0.1:{8089 + i % args.replicas}/v1' for i, name in enumerate(args.names)}
+        metadata['server_commands'] = [server.args for server in servers]
+        metadata['gpu_memory_loaded'] = subprocess.check_output(['nvidia-smi', '--query-gpu=memory.used,memory.free', '--format=csv,noheader'], text=True).strip()
         (OUT / 'colab_metadata.json').write_text(json.dumps(metadata, indent=2))
-        server = serve(runtime, model, binary)
         if args.mode == 'smoke':
             sample = OUT / 'smoke_questions.jsonl'
             sample.write_text('\n'.join((ROOT / 'dev_questions.jsonl').read_text().splitlines()[:3]) + '\n')
             predict(sample, OUT / 'smoke')
         elif args.mode == 'benchmark':
-            benchmark(args.names, args.dataset)
+            benchmark(args.names, args.dataset, args.replicas)
         else:
-            while server.poll() is None:
+            while all(server.poll() is None for server in servers):
                 time.sleep(1)
             raise RuntimeError('Qwen server stopped')
         status['state'] = 'succeeded'
@@ -180,13 +188,14 @@ def main():
         status.update(state='failed', error=f'{type(error).__name__}: {error}')
         raise
     finally:
-        if server is not None and server.poll() is None:
-            server.terminate()
-            try:
-                server.wait(timeout=30)
-            except subprocess.TimeoutExpired:
-                server.kill()
-                server.wait()
+        for server in servers:
+            if server.poll() is None:
+                server.terminate()
+                try:
+                    server.wait(timeout=30)
+                except subprocess.TimeoutExpired:
+                    server.kill()
+                    server.wait()
         status['finished_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
         status_file.write_text(json.dumps(status, indent=2))
 
