@@ -1,19 +1,19 @@
 {
-  "answer_accuracy": 1,
-  "Q": 0.9811111111111112,
-  "mean_input_tokens": 1730.6,
-  "mean_output_tokens": 3207.866666666667,
+  "answer_accuracy": 0.9333333333333333,
+  "Q": 0.9052777777777777,
+  "mean_input_tokens": 1692.9333333333334,
+  "mean_output_tokens": 3122.4,
   "mean_llm_calls": 1,
-  "mean_cost": 14818.066666666668,
-  "median_latency_ms": 195261.27,
+  "mean_cost": 14438.533333333333,
+  "median_latency_ms": 231592.78,
   "efficiency_valid": true,
-  "E": 0.9631035987600721,
-  "score": 97.20612438069844,
+  "E": 0.9673558717875316,
+  "score": 89.78897768163586,
   "category_scores": {
-    "conditions": 0.9733333333333334,
-    "comparison": 0.9733333333333334,
+    "conditions": 0.9866666666666667,
+    "comparison": 0.99,
     "calculation": 0.9777777777777777,
-    "insufficient": 1.0
+    "insufficient": 0.6666666666666666
   },
   "questions": [
     {
@@ -36,8 +36,8 @@
       "id": "q_003",
       "category": "comparison",
       "answer_accuracy": 1,
-      "citation_f1": 0.6666666666666666,
-      "score": 0.9333333333333333,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
@@ -60,16 +60,16 @@
       "id": "q_006",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 0.6666666666666666,
-      "score": 0.9333333333333333,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
       "id": "q_007",
       "category": "calculation",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {
@@ -100,8 +100,8 @@
       "id": "q_011",
       "category": "calculation",
       "answer_accuracy": 1,
-      "citation_f1": 0.6666666666666666,
-      "score": 0.9333333333333333,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
@@ -131,9 +131,9 @@
     {
       "id": "q_015",
       "category": "insufficient",
-      "answer_accuracy": 1,
+      "answer_accuracy": 0,
       "citation_f1": 0.0,
-      "score": 1.0,
+      "score": 0.0,
       "errors": []
     }
   ]

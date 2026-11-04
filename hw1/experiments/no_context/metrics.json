@@ -1,16 +1,16 @@
 {
-  "answer_accuracy": 1,
+  "answer_accuracy": 0.9333333333333333,
   "Q": null,
-  "mean_input_tokens": 270.1333333333333,
-  "mean_output_tokens": 3070.866666666667,
+  "mean_input_tokens": 263.1333333333333,
+  "mean_output_tokens": 3067.6,
   "mean_llm_calls": 1,
-  "mean_cost": 12809.6,
-  "median_latency_ms": 199078.68,
+  "mean_cost": 12789.533333333333,
+  "median_latency_ms": 236103.46,
   "efficiency_valid": true,
   "E": 1,
   "score": null,
   "category_scores": {
-    "conditions": 1.0,
+    "conditions": 0.8,
     "comparison": 1.0,
     "calculation": 1.0,
     "insufficient": 1.0
@@ -27,9 +27,9 @@
     {
       "id": "q_002",
       "category": "conditions",
-      "answer_accuracy": 1,
+      "answer_accuracy": 0,
       "citation_f1": 0.0,
-      "score": 1.0,
+      "score": 0.0,
       "errors": []
     },
     {

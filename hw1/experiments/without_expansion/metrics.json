@@ -1,18 +1,18 @@
 {
   "answer_accuracy": 0.8666666666666667,
-  "Q": 0.8095833333333333,
-  "mean_input_tokens": 1804.6666666666667,
-  "mean_output_tokens": 3207.5333333333333,
+  "Q": 0.8136111111111111,
+  "mean_input_tokens": 1774.1333333333334,
+  "mean_output_tokens": 3247.866666666667,
   "mean_llm_calls": 1,
-  "mean_cost": 14890.8,
-  "median_latency_ms": 193806.98,
+  "mean_cost": 15021.6,
+  "median_latency_ms": 230730.38,
   "efficiency_valid": true,
-  "E": 0.9583993696331516,
-  "score": 80.1163539083043,
+  "E": 0.9298077435160036,
+  "score": 79.93338111637759,
   "category_scores": {
-    "conditions": 0.9466666666666667,
-    "comparison": 0.42500000000000004,
-    "calculation": 0.8666666666666667,
+    "conditions": 0.76,
+    "comparison": 0.65,
+    "calculation": 0.8444444444444444,
     "insufficient": 1.0
   },
   "questions": [
@@ -28,40 +28,40 @@
       "id": "q_002",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 0.6666666666666666,
-      "score": 0.9333333333333333,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
       "id": "q_003",
       "category": "comparison",
       "answer_accuracy": 1,
-      "citation_f1": 0.5,
-      "score": 0.9,
+      "citation_f1": 0.0,
+      "score": 0.8,
       "errors": []
     },
     {
       "id": "q_004",
       "category": "comparison",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
       "id": "q_005",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 0.6666666666666666,
-      "score": 0.9333333333333333,
+      "citation_f1": 0.0,
+      "score": 0.8,
       "errors": []
     },
     {
       "id": "q_006",
       "category": "conditions",
-      "answer_accuracy": 1,
-      "citation_f1": 0.3333333333333333,
-      "score": 0.8666666666666667,
+      "answer_accuracy": 0,
+      "citation_f1": 0.0,
+      "score": 0.0,
       "errors": []
     },
     {
@@ -100,8 +100,8 @@
       "id": "q_011",
       "category": "calculation",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {

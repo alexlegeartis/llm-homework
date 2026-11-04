@@ -1,18 +1,18 @@
 {
   "answer_accuracy": 1,
-  "Q": 0.9704166666666667,
-  "mean_input_tokens": 1450.5333333333333,
-  "mean_output_tokens": 3197.2,
+  "Q": 0.9465277777777777,
+  "mean_input_tokens": 1404.5333333333333,
+  "mean_output_tokens": 3223.4666666666667,
   "mean_llm_calls": 1,
-  "mean_cost": 14495.333333333334,
-  "median_latency_ms": 196724.82,
+  "mean_cost": 14554.4,
+  "median_latency_ms": 208962.33,
   "efficiency_valid": true,
-  "E": 0.9845467506783793,
-  "score": 96.66676439927026,
+  "E": 0.9596548122904415,
+  "score": 93.69808175610888,
   "category_scores": {
-    "conditions": 0.9733333333333334,
-    "comparison": 0.975,
-    "calculation": 0.9333333333333333,
+    "conditions": 0.96,
+    "comparison": 0.915,
+    "calculation": 0.9111111111111111,
     "insufficient": 1.0
   },
   "questions": [
@@ -20,24 +20,24 @@
       "id": "q_001",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {
       "id": "q_002",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 0.6666666666666666,
-      "score": 0.9333333333333333,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
       "id": "q_003",
       "category": "comparison",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.5,
+      "score": 0.9,
       "errors": []
     },
     {
@@ -60,8 +60,8 @@
       "id": "q_006",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {
@@ -84,8 +84,8 @@
       "id": "q_009",
       "category": "comparison",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.8,
+      "score": 0.9600000000000001,
       "errors": []
     },
     {
@@ -100,16 +100,16 @@
       "id": "q_011",
       "category": "calculation",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {
       "id": "q_012",
       "category": "comparison",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.5,
+      "score": 0.9,
       "errors": []
     },
     {

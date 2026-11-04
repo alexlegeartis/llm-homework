@@ -1,19 +1,19 @@
 {
-  "answer_accuracy": 0.7333333333333333,
-  "Q": 0.6950000000000001,
-  "mean_input_tokens": 1310.2666666666667,
-  "mean_output_tokens": 3176.266666666667,
+  "answer_accuracy": 0.8,
+  "Q": 0.7491666666666666,
+  "mean_input_tokens": 1264.2666666666667,
+  "mean_output_tokens": 3111.733333333333,
   "mean_llm_calls": 1,
-  "mean_cost": 14271.333333333334,
-  "median_latency_ms": 197443.74,
+  "mean_cost": 13967.2,
+  "median_latency_ms": 205297.62,
   "efficiency_valid": true,
   "E": 1,
-  "score": 69.5,
+  "score": 74.91666666666667,
   "category_scores": {
-    "conditions": 0.76,
-    "comparison": 0.42000000000000004,
-    "calculation": 0.6,
-    "insufficient": 1.0
+    "conditions": 0.7466666666666667,
+    "comparison": 0.65,
+    "calculation": 0.9333333333333333,
+    "insufficient": 0.6666666666666666
   },
   "questions": [
     {
@@ -28,24 +28,24 @@
       "id": "q_002",
       "category": "conditions",
       "answer_accuracy": 1,
-      "citation_f1": 1.0,
-      "score": 1.0,
+      "citation_f1": 0.6666666666666666,
+      "score": 0.9333333333333333,
       "errors": []
     },
     {
       "id": "q_003",
       "category": "comparison",
       "answer_accuracy": 1,
-      "citation_f1": 0.4,
-      "score": 0.8800000000000001,
+      "citation_f1": 0.5,
+      "score": 0.9,
       "errors": []
     },
     {
       "id": "q_004",
       "category": "comparison",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
+      "answer_accuracy": 1,
+      "citation_f1": 0.5,
+      "score": 0.9,
       "errors": []
     },
     {
@@ -99,9 +99,9 @@
     {
       "id": "q_011",
       "category": "calculation",
-      "answer_accuracy": 0,
-      "citation_f1": 0.0,
-      "score": 0.0,
+      "answer_accuracy": 1,
+      "citation_f1": 1.0,
+      "score": 1.0,
       "errors": []
     },
     {
@@ -131,9 +131,9 @@
     {
       "id": "q_015",
       "category": "insufficient",
-      "answer_accuracy": 1,
+      "answer_accuracy": 0,
       "citation_f1": 0.0,
-      "score": 1.0,
+      "score": 0.0,
       "errors": []
     }
   ]

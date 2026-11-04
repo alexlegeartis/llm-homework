@@ -29,7 +29,7 @@
 | [`config.json`](config.json), [`runtime.json`](runtime.json), [`requirements.txt`](requirements.txt) | Настройки поиска, модель и параметры генерации, закреплённые зависимости. |
 | [`dev_questions.jsonl`](dev_questions.jsonl), [`dev_gold.jsonl`](dev_gold.jsonl) | 15 вопросов из исходных QA и эталоны для оценки. Предсказание получает только вопросы. |
 | [`own_questions.jsonl`](own_questions.jsonl), [`own_gold.jsonl`](own_gold.jsonl) | 8 подготовленных мною вопросов и правильные ответы с подтверждающими фрагментами. |
-| [`dev_answers.jsonl`](dev_answers.jsonl), [`dev_trace.jsonl`](dev_trace.jsonl) | Сохранённый dev-прогон: ответы и отладочные сведения о вызовах, токенах, времени и найденных фрагментах. Версия кода указана в `experiments/`. |
+| [`dev_answers.jsonl`](dev_answers.jsonl), [`dev_trace.jsonl`](dev_trace.jsonl) | Сохранённый dev-прогон: ответы и отладочные сведения о вызовах, токенах, времени и найденных фрагментах. Версия кода и метрики сохранены в `run_metadata.json`, описание прогонов в `experiments/`. |
 | [`experiments.csv`](experiments.csv), [`report.md`](report.md) | Сводные результаты и отчёт с методом, абляциями, ошибками и измерениями. |
 | [`corpus_manifest.json`](corpus_manifest.json), [`run_metadata.json`](run_metadata.json) | Дополнительные сведения для проверки воспроизводимости: хеши исходников данных, параметры и окружение прогона. |
 | [`.env.example`](.env.example) | Пример значений API. Файл автоматически не загружается: переменные задаются в терминале, как показано ниже. |
